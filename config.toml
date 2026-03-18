@@ -7,3 +7,7 @@ backgroundColor="#FDFDE0"
 secondaryBackgroundColor="#b9df13"
 textColor="#333333"
 fonts="sans serif"
+
+[server]
+
+Readless = true
