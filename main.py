@@ -1,6 +1,32 @@
 ﻿import streamlit as st
 from fluxo import gerenciar_fluxo  # Aqui está a mágica!
 
+#Customização do CSS
+st.mardown("""
+<style>
+/* Esconde o rodapé 'Made with Streamlit' */
+footer {visibility: hidden;}
+
+/* Customiza a barra de entrada de texto */
+.stChat Input textarea {
+
+background-color: #ffffff !important; /* Cor de fundo branca*/
+color: #333333 !important;  /*Cor de texto digitado*/
+border: 1px solid #ddd !important; /*Borda sutil*/
+
+/*Altera a cor do botão de enviar (setinha)*/
+
+st.ChatInput button {
+background-color: #FF4B4B !imnportant; /*Exemplo: Vermelho combinando com o foguete*/
+color: white !important;
+}
+</style>
+""",unsafe_allow_html=True)
+
+
+
+
+
 
 st.set_page_config(page_title="ACN Personalizados", page_icon="avatar.png")
 
