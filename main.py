@@ -2,7 +2,7 @@
 from fluxo import gerenciar_fluxo  # Aqui está a mágica!
 
 #Customização do CSS
-st.mardown("""
+st.markdown("""
 <style>
 /* Esconde o rodapé 'Made with Streamlit' */
 footer {visibility: hidden;}
