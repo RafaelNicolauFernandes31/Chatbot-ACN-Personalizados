@@ -3,6 +3,9 @@ import streamlit as st
 # URL ou caminho da imagem da sua bonequinha
 AVATAR_URL = "avatar.png" # Coloque o link da imagem aqui
 
+
+st.title("🚀 Chatbot ACN Personalizados")
+
 PRODUTOS_VALIDOS = [
     "Topo de bolos","Kits festas", "Adesivos personalizados", "Cadernos personalizados", 
     "Materiais personalizados", "Chaveiros personalizados", "Toalhas personalizadas"
