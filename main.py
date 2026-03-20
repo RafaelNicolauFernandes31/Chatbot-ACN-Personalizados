@@ -47,7 +47,7 @@ if prompt := st.chat_input("Como posso ajudar?"):
         st.write(prompt)
 
     # Lógica de Resposta da Assistente
-    with st.chat_message("assistant", avatar=AVATAR_URL):
+    with st.chat_message("assistant", avatar=avatar.png):
         if st.session_state.passo == "nome":
             if len(prompt.strip()) > 2:
                 nome = prompt.strip()
