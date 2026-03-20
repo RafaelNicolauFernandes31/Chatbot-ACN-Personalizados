@@ -11,55 +11,21 @@ PRODUTOS_VALIDOS = [
     "Materiais personalizados", "Chaveiros personalizados", "Toalhas personalizadas"
 ]
 
-# Inicialização do estado
-if "mensagens" not in st.session_state:
-    st.session_state.mensagens = [
-        {"role": "assistant", "content": "Olá! Sou a assistente da ACN Personalizados. Qual seu nome?"}
-    ]
-    st.session_state.passo = "nome"
+# 1. Exibe as mensagens do histórico com o avatar personalizado
+for mensagem in st.session_state.mensagens:
+    # Se a mensagem for do assistente, usa a imagem da bonequinha
+    avatar_atual = "avatar.jpg" if mensagem["role"] == "assistant" else None
+    
+    with st.chat_message(mensagem["role"], avatar=avatar_atual):
+        st.markdown(mensagem["content"])
 
-# Exibe o histórico de mensagens com o avatar
-for msg in st.session_state.mensagens:
-    with st.chat_message(msg["role"], avatar=AVATAR_URL if msg["role"] == "assistant" else None):
-        st.write(msg["content"])
-
-# Entrada do usuário
-if prompt := st.chat_input("Como posso ajudar?"):
-    # Adiciona fala do usuário ao histórico
-    st.session_state.mensagens.append({"role": "user", "content": prompt})
+# 2. Entrada do usuário
+if pronto := st.chat_input("Como posso ajudar?"):
+    st.session_state.mensagens.append({"role": "user", "content": pronto})
     with st.chat_message("user"):
-        st.write(prompt)
+        st.markdown(pronto)
 
-    # Lógica de Resposta da Assistente
-    with st.chat_message("assistant", avatar=AVATAR_URL):
-        if st.session_state.passo == "nome":
-            if len(prompt.strip()) > 2:
-                nome = prompt.strip()
-                resposta = f"Prazer, {nome}! O que você deseja personalizar hoje?"
-                st.session_state.passo = "produto"
-                # Exibe as opções para facilitar
-                st.write(resposta)
-                st.info("Escolha: " + " | ".join(PRODUTOS_VALIDOS))
-            else:
-                resposta = "Por favor, digite um nome válido para continuarmos."
-                st.write(resposta)
-
-        elif st.session_state.passo == "produto":
-            item_escolhido = next((item for item in PRODUTOS_VALIDOS if item.lower() == prompt.lower()), None)
-            
-            if item_escolhido:
-                resposta = f"Ótimo! E qual seria a quantidade de {item_escolhido}?"
-                st.session_state.passo = "quantidade"
-                st.write(resposta)
-            else:
-                resposta = "Ainda não trabalhamos com esse item. Por favor, escolha uma das opções da nossa lista."
-                st.write(resposta)
-                st.warning("Opções: " + ", ".join(PRODUTOS_VALIDOS))
-
-        # Adiciona a resposta da assistente ao histórico
-        st.session_state.mensagens.append({"role": "assistant", "content": resposta})
-
-# Chamada do seu arquivo auxiliar
+    # Chamada do seu arquivo auxiliar
     resposta_bot = gerenciar_fluxo(pronto, "5521966420939")
     
     # 3. Resposta do robô usando a bonequinha como avatar
