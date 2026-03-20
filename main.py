@@ -59,10 +59,16 @@ if prompt := st.chat_input("Como posso ajudar?"):
         # Adiciona a resposta da assistente ao histórico
         st.session_state.mensagens.append({"role": "assistant", "content": resposta})
 
-
-
-
-        
+# Chamada do seu arquivo auxiliar
+    resposta_bot = gerenciar_fluxo(pronto, "5521966420939")
+    
+    # 3. Resposta do robô usando a bonequinha como avatar
+    with st.chat_message("assistant", avatar="avatar.jpg"):
+        st.write(resposta_bot)
+        if st.session_state.get("passo") == 4:
+            st.link_button("🟢 Finalizar no WhatsApp", st.session_state.link_whatsapp)
+            
+    st.session_state.mensagens.append({"role": "assistant", "content": resposta_bot})
 
 
 
