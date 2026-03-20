@@ -39,11 +39,6 @@ if "mensagens" not in st.session_state:
     ]
     st.session_state.passo = "nome"
 
-# Exibe o histórico de mensagens com o avatar
-for msg in st.session_state.mensagens:
-    with st.chat_message(msg["role"], avatar=AVATAR_URL if msg["role"] == "assistant" else None):
-        st.write(msg["content"])
-
 # Entrada do usuário
 if prompt := st.chat_input("Como posso ajudar?"):
     # Adiciona fala do usuário ao histórico
