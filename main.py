@@ -1,37 +1,64 @@
 import streamlit as st
+from fluxo import gerenciar_fluxo
+import os
 
-# URL ou caminho da imagem da sua bonequinha
-AVATAR_URL = "avatar.png" # Coloque o link da imagem aqui
+# --- 1. CONFIGURAÇÃO DA PÁGINA (ÍCONE NA ABA DO NAVEGADOR) ---
+# O 'page_icon' usa o arquivo da bonequinha
+st.set_page_config(
+    page_title="ACN Personalizados - Chatbot", 
+    page_icon="avatar.jpg", 
+    layout="centered"
+)
 
+# --- 2. VALIDAÇÃO DO AVATAR ---
+# Verifica se o arquivo existe para não dar erro no deploy
+AVATAR_PATH = "avatar.jpg"
+if not os.path.exists(AVATAR_PATH):
+    # Se a imagem sumir, ele usa um ícone padrão de robô
+    AVATAR_PATH = "assistant" 
+
+# --- 3. LIMPEZA DE INTERFACE (REMOVE MENUS E BOTÕES) ---
+st.markdown("""
+    <style>
+    #MainMenu {visibility: hidden;}
+    header {visibility: hidden;}
+    footer {visibility: hidden;}
+    .stDeployButton {display:none;}
+    </style>
+    """, unsafe_allow_html=True)
 
 st.title("🚀 Chatbot ACN Personalizados")
 
-# 1. Exibe as mensagens do histórico com o avatar personalizado
+# --- 4. INICIALIZAÇÃO DO HISTÓRICO (EVITA ERRO DE ATRIBUTO) ---
+if "mensagens" not in st.session_state:
+    st.session_state.mensagens = [
+        {"role": "assistant", "content": "Olá! Sou a assistente da ACN Personalizados. Qual seu nome?"}
+    ]
+
+# --- 5. EXIBIÇÃO DO HISTÓRICO ---
 for mensagem in st.session_state.mensagens:
-    # Se a mensagem for do assistente, usa a imagem da bonequinha
-    avatar_atual = "avatar.jpg" if mensagem["role"] == "assistant" else None
+    # Define se usa a bonequinha ou o ícone de usuário
+    avatar_atual = AVATAR_PATH if mensagem["role"] == "assistant" else None
     
     with st.chat_message(mensagem["role"], avatar=avatar_atual):
         st.markdown(mensagem["content"])
 
-# 2. Entrada do usuário
+# --- 6. INTERAÇÃO DO USUÁRIO ---
 if pronto := st.chat_input("Como posso ajudar?"):
+    # Adiciona fala do usuário
     st.session_state.mensagens.append({"role": "user", "content": pronto})
     with st.chat_message("user"):
         st.markdown(pronto)
 
-    # Chamada do seu arquivo auxiliar
+    # Chamada da lógica do seu chatbot
     resposta_bot = gerenciar_fluxo(pronto, "5521966420939")
     
-    # 3. Resposta do robô usando a bonequinha como avatar
-    with st.chat_message("assistant", avatar="avatar.jpg"):
+    # Exibe resposta do robô com o avatar validado
+    with st.chat_message("assistant", avatar=AVATAR_PATH):
         st.write(resposta_bot)
         if st.session_state.get("passo") == 4:
             st.link_button("🟢 Finalizar no WhatsApp", st.session_state.link_whatsapp)
             
+    # Salva no histórico
     st.session_state.mensagens.append({"role": "assistant", "content": resposta_bot})
-
-
-
-
     
