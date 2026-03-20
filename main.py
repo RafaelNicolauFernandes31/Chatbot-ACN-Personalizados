@@ -6,13 +6,13 @@ import os
 # O 'page_icon' usa o arquivo da bonequinha
 st.set_page_config(
     page_title="ACN Personalizados - Chatbot", 
-    page_icon="avatar.jpg", 
+    page_icon="avatar.png", 
     layout="centered"
 )
 
 # --- 2. VALIDAÇÃO DO AVATAR ---
 # Verifica se o arquivo existe para não dar erro no deploy
-AVATAR_PATH = "avatar.jpg"
+AVATAR_PATH = "avatar.png"
 if not os.path.exists(AVATAR_PATH):
     # Se a imagem sumir, ele usa um ícone padrão de robô
     AVATAR_PATH = "assistant" 
