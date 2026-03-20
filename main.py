@@ -6,11 +6,6 @@ AVATAR_URL = "avatar.png" # Coloque o link da imagem aqui
 
 st.title("🚀 Chatbot ACN Personalizados")
 
-PRODUTOS_VALIDOS = [
-    "Topo de bolos","Kits festas", "Adesivos personalizados", "Cadernos personalizados", 
-    "Materiais personalizados", "Chaveiros personalizados", "Toalhas personalizadas"
-]
-
 # 1. Exibe as mensagens do histórico com o avatar personalizado
 for mensagem in st.session_state.mensagens:
     # Se a mensagem for do assistente, usa a imagem da bonequinha
