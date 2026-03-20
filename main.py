@@ -4,7 +4,7 @@ import streamlit as st
 AVATAR_URL = "avatar.png" # Coloque o link da imagem aqui
 
 PRODUTOS_VALIDOS = [
-    "Kit festa", "Adesivos personalizados", "Cadernos personalizados", 
+    "Topo de bolos","Kits festas", "Adesivos personalizados", "Cadernos personalizados", 
     "Materiais personalizados", "Chaveiros personalizados", "Toalhas personalizadas"
 ]
 
